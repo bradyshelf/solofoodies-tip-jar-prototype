@@ -410,7 +410,7 @@ const ReviewFormPage = () => {
                   <div className="space-y-2">
                     <Button
                       variant="outline"
-                      className="w-full h-10 border-2 border-yellow-400 bg-yellow-50 text-blue-500 hover:bg-yellow-100"
+                      className="w-full h-10 border-gray-300 hover:border-blue-400"
                     >
                       Custom Tip
                     </Button>
