@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import TipDialog from '@/components/TipDialog';
 
 const ReviewFormPage = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const ReviewFormPage = () => {
   const [feedback, setFeedback] = useState('');
   const [hoveredRating, setHoveredRating] = useState(0);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showTipDialog, setShowTipDialog] = useState(false);
   const [didPost, setDidPost] = useState('');
   
   // Restaurant review ratings (5 separate questions)
@@ -379,10 +381,7 @@ const ReviewFormPage = () => {
                 <Button 
                   variant="outline" 
                   className="w-full border-yellow-300 text-yellow-700 hover:bg-yellow-100"
-                  onClick={() => {
-                    // Handle tip function - could open a payment modal or redirect
-                    console.log('Opening tip function for foodie');
-                  }}
+                  onClick={() => setShowTipDialog(true)}
                 >
                   Dejar Propina
                 </Button>
@@ -398,6 +397,13 @@ const ReviewFormPage = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Tip Dialog */}
+      <TipDialog 
+        isOpen={showTipDialog}
+        onClose={() => setShowTipDialog(false)}
+        baseAmount={22.34} // This could be dynamic based on collaboration value
+      />
     </div>
   );
 };
