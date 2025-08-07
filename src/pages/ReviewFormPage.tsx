@@ -379,10 +379,6 @@ const ReviewFormPage = () => {
                 
                 {/* Tip Interface */}
                 <div className="space-y-4">
-                  {/* Amount Display */}
-                  <div className="text-center">
-                    <span className="text-2xl font-bold">$22.34</span>
-                  </div>
 
                   {/* Tip Percentage Options */}
                   <div className="grid grid-cols-3 gap-2">
