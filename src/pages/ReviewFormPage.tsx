@@ -365,6 +365,30 @@ const ReviewFormPage = () => {
             <p className="text-gray-600">
               Tu reseña ha sido enviada exitosamente. Gracias por compartir tu experiencia.
             </p>
+            
+            {/* Tip Function - Only show for restaurant reviews with 4.5+ stars */}
+            {!isFoodieReview && calculateAverageRating() >= 4.5 && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-3">
+                <div className="flex items-center justify-center space-x-2">
+                  <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <span className="font-medium text-yellow-800">¡Excelente colaboración!</span>
+                </div>
+                <p className="text-sm text-yellow-700">
+                  Considera dejar una propina para mostrar tu aprecio por el gran trabajo del creador.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-yellow-300 text-yellow-700 hover:bg-yellow-100"
+                  onClick={() => {
+                    // Handle tip function - could open a payment modal or redirect
+                    console.log('Opening tip function for foodie');
+                  }}
+                >
+                  Dejar Propina
+                </Button>
+              </div>
+            )}
+            
             <Button 
               onClick={handleSuccessDialogClose}
               className="w-full bg-blue-600 hover:bg-blue-700"
