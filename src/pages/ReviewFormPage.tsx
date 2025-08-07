@@ -8,7 +8,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import TipDialog from '@/components/TipDialog';
 
 const ReviewFormPage = () => {
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ const ReviewFormPage = () => {
   const [feedback, setFeedback] = useState('');
   const [hoveredRating, setHoveredRating] = useState(0);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const [showTipDialog, setShowTipDialog] = useState(false);
   const [didPost, setDidPost] = useState('');
   
   // Restaurant review ratings (5 separate questions)
@@ -370,21 +368,73 @@ const ReviewFormPage = () => {
             
             {/* Tip Function - Only show for restaurant reviews with 4.5+ stars */}
             {!isFoodieReview && calculateAverageRating() >= 4.5 && (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-3">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-4">
                 <div className="flex items-center justify-center space-x-2">
                   <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   <span className="font-medium text-yellow-800">¡Excelente colaboración!</span>
                 </div>
-                <p className="text-sm text-yellow-700">
+                <p className="text-sm text-yellow-700 text-center">
                   Considera dejar una propina para mostrar tu aprecio por el gran trabajo del creador.
                 </p>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-yellow-300 text-yellow-700 hover:bg-yellow-100"
-                  onClick={() => setShowTipDialog(true)}
-                >
-                  Dejar Propina
-                </Button>
+                
+                {/* Tip Interface */}
+                <div className="space-y-4">
+                  {/* Amount Display */}
+                  <div className="text-center">
+                    <span className="text-2xl font-bold">$22.34</span>
+                  </div>
+
+                  {/* Tip Percentage Options */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { percentage: '15', amount: '3.35' },
+                      { percentage: '20', amount: '4.46' },
+                      { percentage: '25', amount: '5.59' }
+                    ].map((option) => (
+                      <Button
+                        key={option.percentage}
+                        variant="outline"
+                        className="h-16 flex flex-col space-y-1 border-gray-300 hover:border-blue-400"
+                      >
+                        <span className="text-lg font-semibold text-blue-500">
+                          {option.percentage}%
+                        </span>
+                        <span className="text-xs text-gray-600">
+                          ${option.amount}
+                        </span>
+                      </Button>
+                    ))}
+                  </div>
+
+                  {/* Custom Tip and No Tip Options */}
+                  <div className="space-y-2">
+                    <Button
+                      variant="outline"
+                      className="w-full h-10 border-2 border-yellow-400 bg-yellow-50 text-blue-500 hover:bg-yellow-100"
+                    >
+                      Custom Tip
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      className="w-full h-10 border-gray-300 hover:border-blue-400"
+                    >
+                      No Tip
+                    </Button>
+                  </div>
+
+                  {/* Signature Section */}
+                  <div className="space-y-2">
+                    <p className="text-center text-gray-500 text-sm">Please sign here</p>
+                    <div className="border-b-2 border-gray-300 pb-1">
+                      <input
+                        type="text"
+                        placeholder="Your signature"
+                        className="w-full border-0 bg-transparent text-center focus:outline-none text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
             
@@ -397,13 +447,6 @@ const ReviewFormPage = () => {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Tip Dialog */}
-      <TipDialog 
-        isOpen={showTipDialog}
-        onClose={() => setShowTipDialog(false)}
-        baseAmount={22.34} // This could be dynamic based on collaboration value
-      />
     </div>
   );
 };
