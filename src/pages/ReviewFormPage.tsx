@@ -423,17 +423,6 @@ const ReviewFormPage = () => {
                     </Button>
                   </div>
 
-                  {/* Signature Section */}
-                  <div className="space-y-2">
-                    <p className="text-center text-gray-500 text-sm">Please sign here</p>
-                    <div className="border-b-2 border-gray-300 pb-1">
-                      <input
-                        type="text"
-                        placeholder="Your signature"
-                        className="w-full border-0 bg-transparent text-center focus:outline-none text-sm"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             )}
