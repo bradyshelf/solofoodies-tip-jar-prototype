@@ -380,23 +380,20 @@ const ReviewFormPage = () => {
                 {/* Tip Interface */}
                 <div className="space-y-4">
 
-                  {/* Tip Percentage Options */}
+                  {/* Tip Amount Options */}
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { percentage: '15', amount: '3.35' },
-                      { percentage: '20', amount: '4.46' },
-                      { percentage: '25', amount: '5.59' }
+                      { amount: '50' },
+                      { amount: '100' },
+                      { amount: '200' }
                     ].map((option) => (
                       <Button
-                        key={option.percentage}
+                        key={option.amount}
                         variant="outline"
                         className="h-16 flex flex-col space-y-1 border-gray-300 hover:border-blue-400"
                       >
                         <span className="text-lg font-semibold text-blue-500">
-                          {option.percentage}%
-                        </span>
-                        <span className="text-xs text-gray-600">
-                          ${option.amount}
+                          €{option.amount}
                         </span>
                       </Button>
                     ))}
