@@ -5,6 +5,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -19,6 +20,7 @@ const ReviewFormPage = () => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [didPost, setDidPost] = useState('');
   const [selectedTipAmount, setSelectedTipAmount] = useState('');
+  const [customTipAmount, setCustomTipAmount] = useState('');
   
   // Restaurant review ratings (5 separate questions)
   const [restaurantRatings, setRestaurantRatings] = useState({
@@ -405,13 +407,16 @@ const ReviewFormPage = () => {
 
                   {/* Custom Tip and No Tip Options */}
                   <div className="space-y-2">
-                    <Button
-                      variant="outline"
-                      className="w-full h-10 border-gray-300 hover:border-blue-400 text-blue-500"
-                      onClick={() => setSelectedTipAmount('custom')}
-                    >
-                      Custom Tip
-                    </Button>
+                    <Input
+                      type="number"
+                      placeholder="Custom Tip"
+                      value={customTipAmount}
+                      onChange={(e) => {
+                        setCustomTipAmount(e.target.value);
+                        setSelectedTipAmount('custom');
+                      }}
+                      className="w-full h-16 border-gray-300 hover:border-blue-400 focus:border-blue-400 text-lg text-center"
+                    />
 
                     <Button
                       variant="outline"
@@ -431,7 +436,9 @@ const ReviewFormPage = () => {
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
               {selectedTipAmount && selectedTipAmount !== 'none' ? (
-                selectedTipAmount === 'custom' ? 'Confirmar Propina Personalizada' : `Confirmar Propina de ${selectedTipAmount}€`
+                selectedTipAmount === 'custom' && customTipAmount ? `Confirmar Propina de ${customTipAmount}€` : 
+                selectedTipAmount === 'custom' ? 'Confirmar Propina Personalizada' : 
+                `Confirmar Propina de ${selectedTipAmount}€`
               ) : 'Volver a Reseñas'}
             </Button>
           </div>
