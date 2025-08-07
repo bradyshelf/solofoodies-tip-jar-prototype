@@ -18,6 +18,7 @@ const ReviewFormPage = () => {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [didPost, setDidPost] = useState('');
+  const [selectedTipAmount, setSelectedTipAmount] = useState('');
   
   // Restaurant review ratings (5 separate questions)
   const [restaurantRatings, setRestaurantRatings] = useState({
@@ -390,10 +391,13 @@ const ReviewFormPage = () => {
                       <Button
                         key={option.amount}
                         variant="outline"
-                        className="h-16 flex flex-col space-y-1 border-gray-300 hover:border-blue-400"
+                        className={`h-16 flex flex-col space-y-1 border-gray-300 hover:border-blue-400 ${
+                          selectedTipAmount === option.amount ? 'border-blue-500 bg-blue-50' : ''
+                        }`}
+                        onClick={() => setSelectedTipAmount(option.amount)}
                       >
                         <span className="text-lg font-semibold text-blue-500">
-                          €{option.amount}
+                          {option.amount}€
                         </span>
                       </Button>
                     ))}
@@ -404,6 +408,7 @@ const ReviewFormPage = () => {
                     <Button
                       variant="outline"
                       className="w-full h-10 border-gray-300 hover:border-blue-400 text-blue-500"
+                      onClick={() => setSelectedTipAmount('custom')}
                     >
                       Custom Tip
                     </Button>
@@ -411,6 +416,7 @@ const ReviewFormPage = () => {
                     <Button
                       variant="outline"
                       className="w-full h-10 border-gray-300 hover:border-blue-400"
+                      onClick={() => setSelectedTipAmount('none')}
                     >
                       No Tip
                     </Button>
@@ -424,7 +430,9 @@ const ReviewFormPage = () => {
               onClick={handleSuccessDialogClose}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              Volver a Reseñas
+              {selectedTipAmount && selectedTipAmount !== 'none' ? (
+                selectedTipAmount === 'custom' ? 'Confirmar Propina Personalizada' : `Confirmar Propina de ${selectedTipAmount}€`
+              ) : 'Volver a Reseñas'}
             </Button>
           </div>
         </DialogContent>
